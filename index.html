@@ -162,11 +162,8 @@ var API = 'https://script.google.com/macros/s/AKfycbzFod4vfUaqKfvc49ljUaTSXSIWXT
 var K = (function () {
   var m = location.hash.match(/k=([^&]+)/);
   try {
-    if (m) {
-      localStorage.setItem('rakuken_k', m[1]);
-      history.replaceState(null, '', location.pathname);  // 合言葉をアドレス欄から消す
-      return m[1];
-    }
+    // アドレス欄の #k は消さない（iPhone のホーム画面に追加した時もリンクに合言葉が残るように。νカートと同じ）
+    if (m) { localStorage.setItem('rakuken_k', m[1]); return m[1]; }
     return localStorage.getItem('rakuken_k') || '';
   } catch (_) { return m ? m[1] : ''; }
 })();
